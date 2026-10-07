@@ -1,25 +1,42 @@
 # Raizes Mineiras
 
-Migracao inicial do projeto Lovable **RAIZES MINEIRAS | Nardel Nascimento** para GitHub.
+Migracao independente do projeto Raizes Mineiras para GitHub.
 
-Projeto original Lovable: https://lovable.dev/projects/2d7dba95-ec6c-4b81-8686-dde0855454f8
+Este repositorio nao depende do runtime/config da Lovable. A aplicacao roda como React + Vite, com Supabase no cliente para catalogo, carrinho, pedidos e area administrativa.
 
-## Status
+## Rodar localmente
 
-- Primeira versao funcional em React + Vite.
-- Publicacao preparada via GitHub Pages workflow.
-- O projeto Lovable original possui estrutura de loja, checkout, admin e Supabase. Esta primeira versao GitHub prioriza uma vitrine institucional simples para tirar a pagina da dependencia do Lovable.
-- Funcionalidades de e-commerce/admin ficam para uma segunda etapa.
-
-## Desenvolvimento
-
-```sh
+```bash
 npm install
 npm run dev
 ```
 
-## Build
+## Variaveis
 
-```sh
-npm run build
+Crie `.env.local` a partir de `.env.example`:
+
+```bash
+VITE_SUPABASE_URL=https://seu-projeto.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sua-chave-publica
 ```
+
+A chave publishable e publica. Nunca coloque service role no front-end.
+
+## Deploy GitHub Pages
+
+O workflow `.github/workflows/deploy-pages.yml` publica a pasta `dist` no GitHub Pages.
+
+Para ligar dados reais no deploy, configure estes Repository Variables ou Secrets no GitHub:
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
+
+Sem essas variaveis, o site abre com catalogo demonstrativo local para nao ficar quebrado.
+
+## DNS
+
+Depois que o GitHub Pages estiver ativo, o DNS fica como ultima etapa: apontar o dominio para GitHub Pages e configurar o dominio customizado no repo.
+
+## Supabase
+
+A pasta `supabase/migrations` inclui uma base de schema para produtos, categorias, pedidos e configuracoes. Antes de aplicar em producao, compare com o projeto Supabase atual para evitar sobrescrever estruturas existentes.
